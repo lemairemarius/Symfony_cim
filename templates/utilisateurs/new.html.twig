@@ -1,11 +1,92 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Utilisateurs{% endblock %}
+{% block title %}Création nouvelle utilisateurs{% endblock %}
+
+{% block stylesheets %}
+
+    <link rel="stylesheet" href="{{ asset("assets/css/registration_ut.css") }}" type="text/css">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+            crossorigin="anonymous"></script>
+{% endblock %}
+
 
 {% block body %}
-    <h1>Create new Utilisateurs</h1>
 
-    {{ include('utilisateurs/_form.html.twig') }}
+    {{ include('header.html.twig') }}
 
-    <a href="{{ path('utilisateurs_index') }}">back to list</a>
+    {% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="cube col col-sm-10">
+                <h1>Veuillez renseigner les champs afin de créer un nouvelle  utilisateur :</h1>
+                {{ form_start((registrationForm)) }}
+                <div class="row">
+                    <div class="col-sm-5">
+                        {{ form_label(registrationForm.nomFam_ut) }}
+                        {{ form_widget(registrationForm.nomFam_ut) }}
+                    </div>
+
+                    <div class="col-sm-5">
+                        {{ form_label(registrationForm.nomUs_ut) }}
+                        {{ form_widget(registrationForm.nomUs_ut) }}
+                    </div>
+
+                    <div class="col-sm-5">
+                        {{ form_label(registrationForm.pre_ut) }}
+                        {{ form_widget(registrationForm.pre_ut) }}
+                    </div>
+
+                    <div class="col-sm-5">
+                        {{ form_label(registrationForm.dayBirth_ut) }}
+                        {{ form_widget(registrationForm.dayBirth_ut) }}
+                    </div>
+
+                    <div class="col-sm-5">
+                        {{ form_label(registrationForm.firstAdress_ut) }}
+                        {{ form_widget(registrationForm.firstAdress_ut) }}
+                    </div>
+
+                    <div class="col-sm-5">
+                        {{ form_label(registrationForm.compAdress_ut) }}
+                        {{ form_widget(registrationForm.compAdress_ut) }}
+                    </div>
+
+                    <div class="col-sm-5">
+                        {{ form_label(registrationForm.city_ut) }}
+                        {{ form_widget(registrationForm.city_ut) }}
+                    </div>
+
+                    <div class="col-sm-5">
+                        {{ form_label(registrationForm.cp_ut) }}
+                        {{ form_widget(registrationForm.cp_ut) }}
+                    </div>
+                    <div class="col-sm-5">
+                        {{ form_label(registrationForm.id_card) }}
+                        {{ form_widget(registrationForm.id_card) }}
+                    </div>
+                </div>
+                {{ form_rest(registrationForm) }}
+
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn enregistrer">Valider</button>
+                </div>
+                {{ form_end(registrationForm) }}
+            </div>
+            <div class="menu col-sm-auto">
+                <button type="button" disabled class="btn creer">Créer</button>
+                <button type="button" href="#" class="btn retour">Retour</button>
+            </div>
+        </div>
+    </div>
+
+
+
 {% endblock %}

@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Entity\Carte;
 use App\Entity\Utilisateurs;
 use App\Form\UtilisateursType;
 use App\Repository\UtilisateursRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -28,24 +30,33 @@ class UtilisateursController extends AbstractController
     /**
      * @Route("/new", name="utilisateurs_new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $utilisateur = new Utilisateurs();
+        $card = new Carte();
+
+
         $form = $this->createForm(UtilisateursType::class, $utilisateur);
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $card->setNumCard($form->get("id_card")->getData());
+
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($utilisateur);
+            $entityManager->persist($utilisateur, $card);
             $entityManager->flush();
 
             return $this->redirectToRoute('utilisateurs_index', [], Response::HTTP_SEE_OTHER);
         }
-
-        return $this->renderForm('utilisateurs/new.html.twig', [
-            'utilisateur' => $utilisateur,
-            'form' => $form,
+        return $this->render('utilisateurs/new.html.twig', [
+            'registrationForm'=> $form->createView()
         ]);
+        //return $this->renderForm('utilisateurs/new.html.twig', [
+        //    'utilisateur' => $utilisateur,
+          //  'form' => $form,
+        //]);
     }
 
     /**

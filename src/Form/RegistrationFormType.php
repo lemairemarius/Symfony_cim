@@ -43,6 +43,8 @@ class RegistrationFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('nom_ges')
+            ->add('pren_ges')
         ;
     }
 

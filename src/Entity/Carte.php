@@ -6,7 +6,7 @@ use App\Repository\CarteRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass=CarteRepository::class)
@@ -14,11 +14,6 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
 class Carte
 {
 
-    /**
-     * Hook timestampable behavior
-     * updates createdAt, updatedAt fields
-     */
-    use TimestampableEntity;
 
     /**
      * @ORM\Id

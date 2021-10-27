@@ -1,0 +1,94 @@
+
+/*
+
+##### Hero_Banner Style ####
+
+ */
+.container-fluid{
+
+    max-height: 100%;
+  padding: unset;
+
+}
+
+.hero_banner{
+    display: flex;
+    width: 100%;
+    height: 115px;
+    background-color: #E8E2E2;
+}
+
+.banner{
+    justify-content: space-around;
+    align-items: center;
+}
+
+.btn{
+    background-color: #0171B9;
+    width: 244px;
+    height: 50px;
+    border-radius: 15px;
+    font-size: 15px;
+    color: white;
+}
+
+.mt-1{
+    font-size: 15px;
+}
+
+/*
+
+#### Photo and logo Style ####
+
+ */
+img{
+    padding: 5px;
+    width: 90px;
+}
+
+.fa-home{
+   margin-right: 7px;
+}
+
+/*
+
+### Cadre connexion Style ###
+
+ */
+
+.cadreC{
+    display: flex;
+    width: 450px;
+    height: 425px;
+    border-radius: 30px;
+    background-color: #318CE7;
+    margin: auto;
+    position: relative;
+    top: 160px;
+
+}
+
+.formulaire{
+    width: 100%;
+}
+
+.cadreC h1{
+    text-align: center;
+    font-size: 28px;
+    margin-top: 15px;
+}
+
+.input{
+    margin: 0 30px 20px 30px;
+}
+
+.checkbox{
+    margin: 0 30px;
+}
+
+.bouton{
+    position: relative;
+    left: 100px;
+    bottom: -30px;
+}
+

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+{% block stylesheets %}
+
+<link rel="stylesheet" href="{{ asset("assets/css/hero_banner.css") }}" type="text/css">
+
+{% endblock %}
+
+
+{% block body %}
+    <header>
+        <div class="hero_banner banner">
+            <div class="logo_banner">
+                <img class="logoC" src="{{ asset("/pictures/logoAmiens.png") }}" alt="logoVilleAmiens">
+                <img class="logoM" src="{{ asset("/pictures/logoAmiensM.png") }}" alt="logoAmiensMetropole">
+            </div>
+            <div class="text_banner banner">
+                <H1>Gestion | Accés cimetières</H1>
+            </div>
+
+            <div class="bouton_banner banner">
+                <div class="logo_home">
+                </div>
+                <button class="btn" href="#"><i class="fas fa-home"></i>Retourner au menu principal</button>
+                {% if app.user %}
+                    <div class="mt-1">
+                        Bonjour {{ app.user.username }} | <a href="{{ path('app_logout') }}"> Se deconnecter</a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </header>
+
+{% endblock %}
