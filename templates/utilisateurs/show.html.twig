@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs{% endblock %}
+
+{% block body %}
+    <h1>Utilisateurs</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ utilisateur.id }}</td>
+            </tr>
+            <tr>
+                <th>NomFam_ut</th>
+                <td>{{ utilisateur.nomFamUt }}</td>
+            </tr>
+            <tr>
+                <th>NomUs_ut</th>
+                <td>{{ utilisateur.nomUsUt }}</td>
+            </tr>
+            <tr>
+                <th>Pre_ut</th>
+                <td>{{ utilisateur.preUt }}</td>
+            </tr>
+            <tr>
+                <th>DayBirth_ut</th>
+                <td>{{ utilisateur.dayBirthUt ? utilisateur.dayBirthUt|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>FirstAdress_ut</th>
+                <td>{{ utilisateur.firstAdressUt }}</td>
+            </tr>
+            <tr>
+                <th>CompAdress_ut</th>
+                <td>{{ utilisateur.compAdressUt }}</td>
+            </tr>
+            <tr>
+                <th>City_ut</th>
+                <td>{{ utilisateur.cityUt }}</td>
+            </tr>
+            <tr>
+                <th>Cp_ut</th>
+                <td>{{ utilisateur.cpUt }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ utilisateur.createdAt ? utilisateur.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+            <tr>
+                <th>UpdatedAt</th>
+                <td>{{ utilisateur.updatedAt ? utilisateur.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('utilisateurs_index') }}">back to list</a>
+
+    <a href="{{ path('utilisateurs_edit', {'id': utilisateur.id}) }}">edit</a>
+
+    {{ include('utilisateurs/_delete_form.html.twig') }}
+{% endblock %}

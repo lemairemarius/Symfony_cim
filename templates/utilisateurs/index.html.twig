@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Utilisateurs index{% endblock %}
+
+{% block body %}
+    <h1>Utilisateurs index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>NomFam_ut</th>
+                <th>NomUs_ut</th>
+                <th>Pre_ut</th>
+                <th>DayBirth_ut</th>
+                <th>FirstAdress_ut</th>
+                <th>CompAdress_ut</th>
+                <th>City_ut</th>
+                <th>Cp_ut</th>
+                <th>CreatedAt</th>
+                <th>UpdatedAt</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for utilisateur in utilisateurs %}
+            <tr>
+                <td>{{ utilisateur.id }}</td>
+                <td>{{ utilisateur.nomFamUt }}</td>
+                <td>{{ utilisateur.nomUsUt }}</td>
+                <td>{{ utilisateur.preUt }}</td>
+                <td>{{ utilisateur.dayBirthUt ? utilisateur.dayBirthUt|date('Y-m-d') : '' }}</td>
+                <td>{{ utilisateur.firstAdressUt }}</td>
+                <td>{{ utilisateur.compAdressUt }}</td>
+                <td>{{ utilisateur.cityUt }}</td>
+                <td>{{ utilisateur.cpUt }}</td>
+                <td>{{ utilisateur.createdAt ? utilisateur.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ utilisateur.updatedAt ? utilisateur.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('utilisateurs_show', {'id': utilisateur.id}) }}">show</a>
+                    <a href="{{ path('utilisateurs_edit', {'id': utilisateur.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="12">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('utilisateurs_new') }}">Create new</a>
+{% endblock %}
