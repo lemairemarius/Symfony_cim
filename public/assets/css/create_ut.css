@@ -1,0 +1,71 @@
+
+/*
+
+### Grey left container ###
+
+ */
+.cube{
+    background-color: #E8E2E2;
+    margin: 15px 15px 0 15px !important;
+}
+
+.cube h1{
+    font-size: 28px;
+    text-align: center;
+    padding-top: 15px;
+}
+.col-sm-5{
+    padding: 10px;
+    margin-left: 50px;
+}
+
+
+/*
+### button validate ###
+ */
+
+.enregistrer{
+    display: flex;
+    margin: 50px;
+    color: #38DF67;
+    justify-items: center;
+}
+
+
+/*
+
+### rigth blue menu with 2 buttons
+
+ */
+.menu{
+    display: flex;
+    background-color: #318CE7;
+    float: right;
+    margin : 15px 15px 0 0 !important;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+}
+
+/*
+### button top and button bottom
+ */
+
+.creer{
+    float: start;
+    box-sizing: border-box;
+    align-self: center;
+    margin-top: 15px;
+    font-size: 28px !important;
+}
+
+.retour{
+    float: end;
+    box-sizing: border-box;
+    align-self: center;
+    margin-bottom: 15px;
+    font-size: 28px !important;
+    text-justify: auto;
+}
+

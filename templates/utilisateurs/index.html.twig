@@ -36,6 +36,7 @@
                 <td>{{ utilisateur.cpUt }}</td>
                 <td>{{ utilisateur.createdAt ? utilisateur.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ utilisateur.updatedAt ? utilisateur.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{  }}</td>
                 <td>
                     <a href="{{ path('utilisateurs_show', {'id': utilisateur.id}) }}">show</a>
                     <a href="{{ path('utilisateurs_edit', {'id': utilisateur.id}) }}">edit</a>

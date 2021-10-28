@@ -11,6 +11,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @Route("/utilisateurs")
@@ -28,7 +29,7 @@ class UtilisateursController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="utilisateurs_new", methods={"GET","POST"})
+     * @Route("/admin/new", name="utilisateurs_new", methods={"GET","POST"})
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -41,6 +42,14 @@ class UtilisateursController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $utilisateur->setCreatedAt(new  \DateTime());
+            $utilisateur->setUpdatedAt(new \DateTime());
+
+            $card->setCardVal(true);
+
+            $card->setDCardEndVal(new \DateTime());
+
 
             $card->setNumCard($form->get("id_card")->getData());
 

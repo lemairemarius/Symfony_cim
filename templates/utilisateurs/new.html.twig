@@ -4,7 +4,7 @@
 
 {% block stylesheets %}
 
-    <link rel="stylesheet" href="{{ asset("assets/css/registration_ut.css") }}" type="text/css">
+    <link rel="stylesheet" href="{{ asset("assets/css/create_ut.css") }}" type="text/css">
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
@@ -82,7 +82,7 @@
             </div>
             <div class="menu col-sm-auto">
                 <button type="button" disabled class="btn creer">Créer</button>
-                <button type="button" href="#" class="btn retour">Retour</button>
+                <a type="button" href="{{ path('utilisateurs_index') }}" class="btn retour">Retour</a>
             </div>
         </div>
     </div>
