@@ -101,7 +101,9 @@ class Gestionnaire implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[0] = 'ROLE_USER';
+        $roles[1]= 'ROLE_ADMIN';
+        $roles[2]='ROLE_SADMIN';
 
         return array_unique($roles);
     }

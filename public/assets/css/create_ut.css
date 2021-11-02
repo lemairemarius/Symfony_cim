@@ -69,3 +69,9 @@
     text-justify: auto;
 }
 
+.flash-sucess{
+    background-color: #38DF67;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}

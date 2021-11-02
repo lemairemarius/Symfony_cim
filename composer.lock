@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6e94bb4d9a3c7b985b310cabca44093b",
+    "content-hash": "f1540a24b1fdc1b0f96e4219545efa2b",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -7875,6 +7875,73 @@
     ],
     "packages-dev": [
         {
+            "name": "devfusion/maker-bundle",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/official-dev-fusion/MakerBundle.git",
+                "reference": "3c79fdc95aacd313123bb7a821519cb1148acefa"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/official-dev-fusion/MakerBundle/zipball/3c79fdc95aacd313123bb7a821519cb1148acefa",
+                "reference": "3c79fdc95aacd313123bb7a821519cb1148acefa",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2.5",
+                "symfony/maker-bundle": "^1.0",
+                "symfony/string": "~5.0",
+                "symfony/twig-bundle": ">=4.4"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "DF\\MakerBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martin GILBERT"
+                }
+            ],
+            "description": "This bundle is a code generation tool. It draws heavily on the symfony/maker-bundle by adding several features and more flexibility.",
+            "homepage": "https://github.com/official-dev-fusion/MakerBundle",
+            "keywords": [
+                "Skeleton",
+                "code generator",
+                "create",
+                "crud",
+                "delete",
+                "filter",
+                "generator",
+                "maker",
+                "multi-select",
+                "override",
+                "pagination",
+                "read",
+                "scrud",
+                "search",
+                "symfony",
+                "template",
+                "update"
+            ],
+            "support": {
+                "issues": "https://github.com/official-dev-fusion/MakerBundle/issues",
+                "source": "https://github.com/official-dev-fusion/MakerBundle/tree/v1.0.0"
+            },
+            "time": "2021-02-16T10:15:49+00:00"
+        },
+        {
             "name": "myclabs/deep-copy",
             "version": "1.10.2",
             "source": {
@@ -10150,7 +10217,7 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.2.5",
+        "php": ">=7.4",
         "ext-ctype": "*",
         "ext-iconv": "*"
     },

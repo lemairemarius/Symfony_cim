@@ -24,6 +24,11 @@
     {% form_theme registrationForm 'bootstrap_5_layout.html.twig' %}
 
     <div class="container-fluid">
+        {% for message in app.flashes('sucess') %}
+            <div class="flash-sucess">
+                {{ message }}
+            </div>
+        {% endfor %}
         <div class="row">
             <div class="cube col col-sm-10">
                 <h1>Veuillez renseigner les champs afin de créer un nouvelle  utilisateur :</h1>

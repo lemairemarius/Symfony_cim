@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Carte;
+use App\Entity\Gestionnaire;
 use App\Entity\Utilisateurs;
 use App\Form\UtilisateursType;
 use App\Repository\UtilisateursRepository;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Validator\Constraints\Date;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/utilisateurs")
@@ -29,12 +31,14 @@ class UtilisateursController extends AbstractController
     }
 
     /**
-     * @Route("/admin/new", name="utilisateurs_new", methods={"GET","POST"})
+     * @Route("/new", name="utilisateurs_new", methods={"GET","POST"})
+     *
      */
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $utilisateur = new Utilisateurs();
         $card = new Carte();
+        $gest = new Gestionnaire();
 
 
         $form = $this->createForm(UtilisateursType::class, $utilisateur);
@@ -45,19 +49,28 @@ class UtilisateursController extends AbstractController
 
             $utilisateur->setCreatedAt(new  \DateTime());
             $utilisateur->setUpdatedAt(new \DateTime());
+            $utilisateur->setUpdatedBy($gest->getIdenGes());
+            $utilisateur->setCreatedBy($gest->getIdenGes());
+            $utilisateur->setPossede($card);
 
             $card->setCardVal(true);
-
             $card->setDCardEndVal(new \DateTime());
-
-
             $card->setNumCard($form->get("id_card")->getData());
 
+
+
+
+
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($utilisateur, $card);
+            $entityManager->persist($utilisateur);
+            $entityManager->persist($card);
             $entityManager->flush();
 
-            return $this->redirectToRoute('utilisateurs_index', [], Response::HTTP_SEE_OTHER);
+
+            $this->addFlash('sucess',"Le nouvelle utilisateur a bien été enregistré !");
+
+
+            return $this->redirectToRoute('utilisateurs_new', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('utilisateurs/new.html.twig', [
             'registrationForm'=> $form->createView()
@@ -78,6 +91,10 @@ class UtilisateursController extends AbstractController
         ]);
     }
 
+    /*
+     * TODO : Je suis à ce point !!! Flashmessage pour generer les success aprés update
+     */
+
     /**
      * @Route("/{id}/edit", name="utilisateurs_edit", methods={"GET","POST"})
      */
@@ -92,10 +109,15 @@ class UtilisateursController extends AbstractController
             return $this->redirectToRoute('utilisateurs_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->renderForm('utilisateurs/edit.html.twig', [
-            'utilisateur' => $utilisateur,
-            'form' => $form,
+        return $this->render('utilisateurs/edit.html.twig', [
+            'utilisateur'=> $utilisateur,
+            'registrationForm'=> $form->createView()
         ]);
+
+        //return $this->renderForm('utilisateurs/edit.html.twig', [
+          //  'utilisateur' => $utilisateur,
+            //'form' => $form,
+        //]);
     }
 
     /**
@@ -110,5 +132,18 @@ class UtilisateursController extends AbstractController
         }
 
         return $this->redirectToRoute('utilisateurs_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    /**
+     * @@Route ("/search", name="search")
+     */
+    public function search(UtilisateursRepository $repository)
+    {
+
+        $utilisateurs = $repository->findSearch();
+
+            return $this->render('utilisateurs/search.html.twig',[
+                'utilisateur' => $utilisateurs,
+            ]);
     }
 }
