@@ -2,10 +2,15 @@
 
 namespace App\Controller;
 
+use App\Data\SearchData;
 use App\Entity\Carte;
+use App\Entity\Cimetiere;
 use App\Entity\Gestionnaire;
 use App\Entity\Utilisateurs;
+use App\Form\SearchForm;
 use App\Form\UtilisateursType;
+use App\Repository\CarteRepository;
+use App\Repository\CimetiereRepository;
 use App\Repository\UtilisateursRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -23,10 +28,12 @@ class UtilisateursController extends AbstractController
     /**
      * @Route("/", name="utilisateurs_index", methods={"GET"})
      */
-    public function index(UtilisateursRepository $utilisateursRepository): Response
+    public function index(UtilisateursRepository $utilisateursRepository, CarteRepository $carteRepository, CimetiereRepository $cimetiereRepository): Response
     {
         return $this->render('utilisateurs/index.html.twig', [
             'utilisateurs' => $utilisateursRepository->findAll(),
+            'carte'=> $carteRepository->findAll(),
+            'cim' => $cimetiereRepository->findAll(),
         ]);
     }
 
@@ -39,9 +46,10 @@ class UtilisateursController extends AbstractController
         $utilisateur = new Utilisateurs();
         $card = new Carte();
         $gest = new Gestionnaire();
+        $cim = new Cimetiere();
 
 
-        $form = $this->createForm(UtilisateursType::class, $utilisateur);
+        $form = $this->createForm(UtilisateursType::class, $utilisateur );
 
         $form->handleRequest($request);
 
@@ -56,7 +64,7 @@ class UtilisateursController extends AbstractController
             $card->setCardVal(true);
             $card->setDCardEndVal(new \DateTime());
             $card->setNumCard($form->get("id_card")->getData());
-
+            $card->addAcce($form->get("cimetieres")->getData());
 
 
 
@@ -134,16 +142,4 @@ class UtilisateursController extends AbstractController
         return $this->redirectToRoute('utilisateurs_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    /**
-     * @@Route ("/search", name="search")
-     */
-    public function search(UtilisateursRepository $repository)
-    {
-
-        $utilisateurs = $repository->findSearch();
-
-            return $this->render('utilisateurs/search.html.twig',[
-                'utilisateur' => $utilisateurs,
-            ]);
-    }
 }

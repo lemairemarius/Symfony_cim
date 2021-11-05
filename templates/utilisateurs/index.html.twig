@@ -8,18 +8,18 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>NomFam_ut</th>
-                <th>NomUs_ut</th>
-                <th>Pre_ut</th>
-                <th>DayBirth_ut</th>
-                <th>FirstAdress_ut</th>
-                <th>CompAdress_ut</th>
-                <th>City_ut</th>
-                <th>Cp_ut</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>id carte</th>
+                <th>Identifiant</th>
+                <th>Nom de famille</th>
+                <th>Nom d'usage</th>
+                <th>Prénoms</th>
+                <th>Date de naissance</th>
+                <th>Adresse principal</th>
+                <th>Complément d'adresse</th>
+                <th>Ville</th>
+                <th>Code postale</th>
+                <th>Créer par</th>
+                <th>Modifier par</th>
+                <th>Identifiant carte</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -37,18 +37,24 @@
                 <td>{{ utilisateur.cpUt }}</td>
                 <td>{{ utilisateur.createdAt ? utilisateur.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ utilisateur.updatedAt ? utilisateur.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+
+                {% endfor %}
+
+                {% for cartes in carte %}
+
+                <td> {{ cartes.id }}</td>
+
+                {% endfor %}
+
+                {% for utilisateur in utilisateurs %}
+
                 <td>
-                    <a href="{{ path('utilisateurs_show', {'id': utilisateur.id}) }}">show</a>
-                    <a href="{{ path('utilisateurs_edit', {'id': utilisateur.id}) }}">edit</a>
+                    <a href="{{ path('utilisateurs_show', {'id': utilisateur.id}) }}">Voir Fiche</a>
+                    <a href="{{ path('utilisateurs_edit', {'id': utilisateur.id}) }}">Modifier</a>
                 </td>
+                {% endfor %}
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="12">no records found</td>
-            </tr>
-        {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('utilisateurs_new') }}">Create new</a>
+    <a href="{{ path('utilisateurs_new') }}">Créer nouvelle utilisateur</a>
 {% endblock %}

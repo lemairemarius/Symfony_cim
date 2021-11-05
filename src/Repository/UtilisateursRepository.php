@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Utilisateurs;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Utilisateurs|null find($id, $lockMode = null, $lockVersion = null)
@@ -23,8 +25,38 @@ class UtilisateursRepository extends ServiceEntityRepository
      * récupére les utilisateurs en lien avec une recherche
      * @return Utilisateurs[]
      */
-    public function findSearch(): ?array
+    public function findSearch(SearchData $search): array
     {
-        return $this->findAll();
+        $query = $this
+            ->createQueryBuilder('u')
+            ->join('u.possede', 'c')
+            ->join('c.acces', 'ci');
+
+
+        if(!empty($search->prenoms)){
+            $query = $query
+                ->andWhere('u.pre_ut LIKE :u')
+                ->setParameter('u',"%{$search->prenoms}%");
+        }
+        if(!empty($search->nomFam)){
+            $query = $query
+                ->andWhere('u.nom_fam_ut LIKE :u')
+                ->setParameter('u',"%{$search->nomFam}%");
+        }
+        if(!empty($search->nomUsa)){
+            $query = $query
+                ->andWhere('u.nom_us_ut LIKE :u')
+                ->setParameter('u',"%{$search->nomUsa}%");
+        }
+        if(!empty($search->birth)){
+            $query = $query
+                ->andWhere('u.dayBirth_ut = :u')
+                ->setParameter('u', $search->birth);
+        }
+
+
+
+
+        return $query->getQuery()->getResult();
     }
 }

@@ -54,7 +54,8 @@ class RegistrationFormType extends AbstractType
                     'Super Admin'=> 'ROLE_SADMIN'
                 ],
                     'expanded'=>true,
-                    'label'=>'Rôles :'
+                    'multiple'=>true,
+                    'label'=>'Rôles :',
                 ]);
     }
 
