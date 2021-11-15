@@ -2,9 +2,11 @@
 
 namespace App\Repository;
 
+use App\Data\SearchData;
 use App\Entity\Utilisateurs;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Utilisateurs|null find($id, $lockMode = null, $lockVersion = null)
@@ -19,32 +21,42 @@ class UtilisateursRepository extends ServiceEntityRepository
         parent::__construct($registry, Utilisateurs::class);
     }
 
-    // /**
-    //  * @return Utilisateurs[] Returns an array of Utilisateurs objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * récupére les utilisateurs en lien avec une recherche
+     * @return Utilisateurs[]
+     */
+    public function findSearch(SearchData $search): array
     {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('u.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
+        $query = $this
+            ->createQueryBuilder('u')
+            ->join('u.possede', 'c')
+            ->join('c.acces', 'ci');
 
-    /*
-    public function findOneBySomeField($value): ?Utilisateurs
-    {
-        return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+
+        if(!empty($search->prenoms)){
+            $query = $query
+                ->andWhere('u.pre_ut LIKE :u')
+                ->setParameter('u',"%{$search->prenoms}%");
+        }
+        if(!empty($search->nomFam)){
+            $query = $query
+                ->andWhere('u.nom_fam_ut LIKE :u')
+                ->setParameter('u',"%{$search->nomFam}%");
+        }
+        if(!empty($search->nomUsa)){
+            $query = $query
+                ->andWhere('u.nom_us_ut LIKE :u')
+                ->setParameter('u',"%{$search->nomUsa}%");
+        }
+        if(!empty($search->birth)){
+            $query = $query
+                ->andWhere('u.dayBirth_ut = :u')
+                ->setParameter('u', $search->birth);
+        }
+
+
+
+
+        return $query->getQuery()->getResult();
     }
-    */
 }

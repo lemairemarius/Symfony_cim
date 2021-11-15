@@ -83,6 +83,7 @@ class Utilisateurs
      */
     private $possede;
 
+
     public function __construct()
     {
         $this->gestionnaires = new ArrayCollection();
