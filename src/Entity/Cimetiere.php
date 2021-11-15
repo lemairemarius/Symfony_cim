@@ -30,13 +30,30 @@ class Cimetiere
     private $adress_cim;
 
     /**
+     * @ORM\OneToMany(targetEntity=Carte::class, mappedBy="acces_c")
+     */
+    private $acces;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Carte::class, inversedBy="accesCim")
+     */
+    private $carte;
+
+    /**
      * @ORM\ManyToMany(targetEntity=Carte::class, mappedBy="acces")
      */
     private $cartes;
 
+    /**
+     * @ORM\ManyToMany(targetEntity=Carte::class, inversedBy="cimetieres")
+     */
+    private $carteAcces;
+
     public function __construct()
     {
         $this->cartes = new ArrayCollection();
+        $this->acces = new ArrayCollection();
+        $this->carteAcces = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,33 +85,32 @@ class Cimetiere
         return $this;
     }
 
+
+    public function __toString(){
+        return $this->nom_cim;
+    }
+
     /**
      * @return Collection|Carte[]
      */
-    public function getCartes(): Collection
+    public function getCarteAcces(): Collection
     {
-        return $this->cartes;
+        return $this->carteAcces;
     }
 
-    public function addCarte(Carte $carte): self
+    public function addCarteAcce(Carte $carteAcce): self
     {
-        if (!$this->cartes->contains($carte)) {
-            $this->cartes[] = $carte;
-            $carte->addAcce($this);
+        if (!$this->carteAcces->contains($carteAcce)) {
+            $this->carteAcces[] = $carteAcce;
         }
 
         return $this;
     }
 
-    public function removeCarte(Carte $carte): self
+    public function removeCarteAcce(Carte $carteAcce): self
     {
-        if ($this->cartes->removeElement($carte)) {
-            $carte->removeAcce($this);
-        }
+        $this->carteAcces->removeElement($carteAcce);
 
         return $this;
-    }
-    public function __toString(){
-        return $this->nom_cim;
     }
 }
