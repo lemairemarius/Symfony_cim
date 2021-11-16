@@ -2,10 +2,15 @@
 
 namespace App\Form;
 
+use App\Entity\Carte;
+use App\Entity\CimAm;
 use App\Entity\Cimetiere;
 use App\Entity\Utilisateurs;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\ChoiceList\ChoiceList;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -49,12 +54,19 @@ class UtilisateursType extends AbstractType
                 'disabled'=>true,
                 'mapped'=>false
             ])
+            ->add('cardVal', CheckboxType::class,[
+                'mapped'=>false,
+                'required'=>false,
+                'label'=> 'Validité :'
+            ])
+
             ->add('cimetieres', EntityType::class, [
-                'label'=> 'Cimetieres :',
-                'required' => false,
-                'class' => Cimetiere::class,
-                'expanded' => true,
-                'multiple' => true
+               'label'=> 'Accés cimetières :',
+              'required' => false,
+             'mapped' => false,
+            'class' => Cimetiere::class,
+            'expanded' => true,
+            'multiple' => true,
             ])
 
             #->add('createdAt')

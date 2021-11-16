@@ -20,7 +20,6 @@ class SearchController extends AbstractController
         $data = new SearchData();
         $form = $this->createForm(SearchForm::class, $data);
         $form->handleRequest($request);
-
         $user = $repository->findSearch($data);
 
         return $this->render('search/search.html.twig', [

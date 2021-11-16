@@ -87,60 +87,6 @@ class Carte
         return $this;
     }
 
-
-    public function getAccesC(): ?Cimetiere
-    {
-        return $this->acces_c;
-    }
-
-    public function setAccesC(?Cimetiere $acces_c): self
-    {
-        $this->acces_c = $acces_c;
-
-        return $this;
-    }
-
-
-
-
-
-    public function removeAcce(Cimetiere $acce): self
-    {
-        $this->acces->removeElement($acce);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|CimAm[]
-     */
-    public function getAccess(): Collection
-    {
-        return $this->access;
-    }
-
-    public function addAccess(CimAm $access): self
-    {
-        if (!$this->access->contains($access)) {
-            $this->access[] = $access;
-            $access->setCarte($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAccess(CimAm $access): self
-    {
-        if ($this->access->removeElement($access)) {
-            // set the owning side to null (unless already changed)
-            if ($access->getCarte() === $this) {
-                $access->setCarte(null);
-            }
-        }
-
-        return $this;
-    }
-
     /**
      * @return Collection|Cimetiere[]
      */

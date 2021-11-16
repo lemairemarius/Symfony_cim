@@ -20,6 +20,7 @@
                 <th>Créer par</th>
                 <th>Modifier par</th>
                 <th>Identifiant carte</th>
+                <th>Validité</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -37,18 +38,21 @@
                 <td>{{ utilisateur.cpUt }}</td>
                 <td>{{ utilisateur.createdAt ? utilisateur.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ utilisateur.updatedAt ? utilisateur.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-
-                {% endfor %}
-
-                {% for cartes in carte %}
-
-                <td> {{ cartes.id }}</td>
-
-                {% endfor %}
-
-                {% for utilisateur in utilisateurs %}
-
                 <td>
+                   {{ utilisateur.possede.id }}
+                </td>
+
+                    {% if utilisateur.possede.cardVal == true %}
+                        <td style="background-color: green">
+                            {{ utilisateur.possede.cardVal }}
+                        </td>
+                    {% else %}
+                        <td style="background-color: red">
+                            {{ utilisateur.possede.cardVal }}
+                        </td>
+                    {% endif %}
+
+                    <td>
                     <a href="{{ path('utilisateurs_show', {'id': utilisateur.id}) }}">Voir Fiche</a>
                     <a href="{{ path('utilisateurs_edit', {'id': utilisateur.id}) }}">Modifier</a>
                 </td>
