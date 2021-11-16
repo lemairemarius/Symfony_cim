@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Data\SearchData;
 use App\Entity\Carte;
+use App\Entity\CimAm;
 use App\Entity\Cimetiere;
 use App\Entity\Gestionnaire;
 use App\Entity\Utilisateurs;
@@ -35,21 +36,22 @@ class UtilisateursController extends AbstractController
             'carte'=> $carteRepository->findAll(),
             'cim' => $cimetiereRepository->findAll(),
         ]);
+
     }
 
     /**
      * @Route("/new", name="utilisateurs_new", methods={"GET","POST"})
      *
      */
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, CimetiereRepository $cimetiereRepository, CarteRepository $carteRepository): Response
     {
+
         $utilisateur = new Utilisateurs();
         $card = new Carte();
         $gest = new Gestionnaire();
-        $cim = new Cimetiere();
 
 
-        $form = $this->createForm(UtilisateursType::class, $utilisateur );
+        $form = $this->createForm(UtilisateursType::class, $utilisateur);
 
         $form->handleRequest($request);
 
@@ -61,14 +63,28 @@ class UtilisateursController extends AbstractController
             $utilisateur->setCreatedBy($gest->getIdenGes());
             $utilisateur->setPossede($card);
 
-            $card->setCardVal(true);
+
+            $card->setCardVal($form->get("cardVal")->getData());
+
+
+
             $card->setDCardEndVal(new \DateTime());
+
+
+
             $card->setNumCard($form->get("id_card")->getData());
-            $card->addAcce($form->get("cimetieres")->getData());
 
 
 
+            /**insertion de l'id de la carte dans les cimetières*/
 
+            $selectedCimetiere = $form->get("cimetieres")->getData();
+            foreach ($selectedCimetiere as $cim){
+                $cimetiereEntity = $cimetiereRepository->find($cim);
+                $card->addCimetiere($cimetiereEntity);
+            }
+
+            /** persistance des données et push dans la base données */
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($utilisateur);
             $entityManager->persist($card);
@@ -77,16 +93,12 @@ class UtilisateursController extends AbstractController
 
             $this->addFlash('sucess',"Le nouvelle utilisateur a bien été enregistré !");
 
-
             return $this->redirectToRoute('utilisateurs_new', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('utilisateurs/new.html.twig', [
             'registrationForm'=> $form->createView()
         ]);
-        //return $this->renderForm('utilisateurs/new.html.twig', [
-        //    'utilisateur' => $utilisateur,
-          //  'form' => $form,
-        //]);
+
     }
 
     /**

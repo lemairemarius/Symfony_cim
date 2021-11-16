@@ -9,11 +9,48 @@
             <div class="col-md-3">
                 {% include 'search/_recherche.html.twig' with {form: form} only %}
             </div>
+
             <div class="col-md-9">
                 <div class="grid">
-                    {% for user in users %}
-                        {% include 'search/_utilisateurs.html.twig' with {user: user} only %}
-                    {% endfor %}
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Identifiant </th>
+                            <th>Prénoms </th>
+                            <th>Nom de famille </th>
+                            <th>Date de naissance </th>
+                            <th>Identifiant carte </th>
+                            <th>Validité </th>
+                            <th>actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in users %}
+                            <tr>
+                                <td>{{ user.id }}</td>
+                                <td>{{ user.preUt }}</td>
+                                <td>{{ user.nomFamUt }}</td>
+                                <td>{{ user.dayBirthUt ? user.dayBirthUt|date('Y-m-d') : ''  }}</td>
+                                <td>{{ user.possede.id }}</td>
+
+                                {% if user.possede.cardVal == true %}
+                                    <td style="background-color: green">
+                                        {{ user.possede.dcardEndVal ? user.possede.dcardEndVal|date('y-m-d') : '' }}
+                                    </td>
+                                {% else %}
+                                    <td style="background-color: red">
+                                        {{ user.possede.cardVal }}
+                                    </td>
+                                {% endif %}
+
+                                <td>
+                                    <a href="{{ path('utilisateurs_show', {'id': user.id}) }}">Voir Fiche</a>
+                                    <a href="{{ path('utilisateurs_edit', {'id': user.id}) }}">Modifier</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

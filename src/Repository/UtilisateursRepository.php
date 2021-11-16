@@ -29,8 +29,9 @@ class UtilisateursRepository extends ServiceEntityRepository
     {
         $query = $this
             ->createQueryBuilder('u')
-            ->join('u.possede', 'c')
-            ->join('c.acces', 'ci');
+            ->select('u','ca', 'ci')
+            ->join('u.possede', 'ca')
+            ->join('ca.cimetieres', 'ci');
 
 
         if(!empty($search->prenoms)){
@@ -52,6 +53,11 @@ class UtilisateursRepository extends ServiceEntityRepository
             $query = $query
                 ->andWhere('u.dayBirth_ut = :u')
                 ->setParameter('u', $search->birth);
+        }
+        if(!empty($search->cimetieres)){
+            $query=$query
+                ->andWhere('ci.id IN (:cimetieres)')
+                ->setParameter('cimetieres', $search->cimetieres);
         }
 
 

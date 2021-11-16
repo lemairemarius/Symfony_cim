@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h1>Accés Refusé</h1>
+
+<p>Votre roles ne vous autorise pas à accéder à cette page...<br>
+Veuillez cliquez sur le bouton pour effectuer une redirection </p>
+
+<a href="{{ path('utilisateurs_index') }}">retourner à l'index</a>
+
+{% endblock body %}
